@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            var responseBox = $('#response');
+
+            $('#getUserWithoutCors').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'http://localhost:8080/user',
+                    headers: {
+                        "Authorization": "Basic dXNlcjp1c2Vy",
+                    },
+                    type: 'GET',
+                    success: function (response) {
+                        responseBox.text("success: " + response);
+                    },
+                    error: function (err, a, b, c) {
+                        responseBox.text("error: " + err.status + "\nCheck browser console log.");
+                    }
+                });
+            });
+
+            $('#getUserWithCors').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'http://localhost:8080/userWithCors',
+                    headers: {
+                        "Authorization": "Basic dXNlcjp1c2Vy",
+                    },
+                    type: 'GET',
+                    success: function (response) {
+                        responseBox.text("success: " + response);
+                    },
+                    error: function (err, a, b, c) {
+                        responseBox.text("error: " + err.status + "\nCheck browser console log.");
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <ul>
+        <li>get user without cors: <button id="getUserWithoutCors">Click!</button></li>
+        <li>get user with cors: <button id="getUserWithCors">Click!</button></li>
+    </ul>
+    <div id="response"></div>
+</body>
+</html>
+
